@@ -11,6 +11,39 @@
 #   - possible affiliations are owner, admin, member, outcast, none
 
 
+# debalance@jessietest:~$ sudo ejabberdctl create_room testroom muc.jabber.rwth-aachen.de jabber.rwth-aachen.de
+#
+# debalance@jessietest:~$ sudo ejabberdctl muc_online_rooms global
+# testroom@muc.jabber.rwth-aachen.de
+#
+# debalance@jessietest:~$ sudo ejabberdctl get_room_options testroom muc.jabber.rwth-aachen.de
+# title   The Room Title hasn't been set yet.
+# description
+# allow_change_subj       true
+# allow_query_users       true
+# allow_private_messages  true
+# allow_private_messages_from_visitors    anyone
+# allow_visitor_status    true
+# allow_visitor_nickchange        true
+# public  true
+# public_list     false
+# persistent      true
+# moderated       false
+# captcha_protected       false
+# members_by_default      true
+# members_only    false
+# allow_user_invites      true
+# allow_subscription      false
+# password_protected      false
+# password
+# anonymous       false
+# presence_broadcast      [moderator,participant,visitor]
+# allow_voice_requests    true
+# voice_request_min_interval      1800
+# max_users       100
+# logging false
+
+
 # From Openfire-openfire_3_9_1/src/java/org/jivesoftware/openfire/muc/MUCRole.java:
 #
 #    /**
@@ -59,7 +92,7 @@ def configure_room(input_line):
     return_options = (title, description, allow_change_subj, allow_user_invites, allow_visitor_nickchange, anonymous, logging)
     public = [room_name, "public", "true" if input_list[3] == "0" else "false"]
     moderated = [room_name, "moderated", "true" if input_list[5] == "0" else "false"]
-    members_only = [room_name, "members_only", "true" if input_list[6] == "0" else "false"]
+    members_only = [room_name, "members_only", "true" if input_list[6] == "1" else "false"]
     return_options += (public, moderated, members_only)
     if not input_list[8] == "NULL":
         password_protected = [room_name, "password_protected", "true"]
